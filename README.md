@@ -34,7 +34,9 @@ cd SEAT
 
 ### 2. Set up your processed data folder
 
-Throughout the software, I refer to my designated file path that was set in the fetching_mechanism.py. I titled this the processed folder and stored it in my user account. I’d recommend following a similar process. Make sure in all modules to watch where data is saved and loaded to. I have used "processed_folder = r"C:\Users\matts\processed" all throughout the software to ensure everything goes where it needs to be. 
+Throughout the software, a base path is used for saving and loading data. This is defined in fetching_mechanism.py as processed_folder. I set this to a folder in my user directory, like: processed_folder = r"C:\Users\matts\processed"
+
+You should choose a similar set up and make sure to consistently use this folder across all modules. Every script references this path, so keeping it organized ensures SEAT runs smoothly without broken file references. 
 
 ### 3. Install dependencies
 
