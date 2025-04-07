@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use SEAT in your research, please cite it as below."
+title: "SEAT – Sutton Entropy Analysis Tool"
+authors:
+- family-names: Sutton
+given-names: Matthew R.
+email: mattsutton9@yahoo.com
+date-released: 2024-04-07
+version: "1.0.0"
+license: "MIT"
+repository-code: "https://github.com/yourusername/SEAT"
+keywords:
+- gravitational waves
+- entropy
+- black holes
+- quantum information
+- data analysis
+- astrophysics
