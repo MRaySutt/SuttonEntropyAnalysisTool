@@ -32,9 +32,9 @@ git clone https://github.com/yourusername/SEAT.git
 cd SEAT
 + ```
 
-### 2. Set up your processed data folder 
+### 2. Set up your processed data folder
 
-Throughout the software, I refer to my designated file path that was set in the fetching_mechanism.py. I titled this the processed folder and stored it in my user account. I’d recommend following a similar process.
+Throughout the software, I refer to my designated file path that was set in the fetching_mechanism.py. I titled this the processed folder and stored it in my user account. I’d recommend following a similar process. Make sure in all modules to watch where data is saved and loaded to. I have used "processed_folder = r"C:\Users\matts\processed" all throughout the software to ensure everything goes where it needs to be. 
 
 ### 3. Install dependencies
 
@@ -46,7 +46,7 @@ This runs on Python out of terminal or command prompt. Python 3.9+ is recommende
 
 Replace the filler GPS time that is included 
 
-### 5. Run through each module in this order as some build off of each other
+### 5. Run through each module in this order in the terminal/command prompt as some build off of each other
 
 1.) fetching_mechanism.py
 2.) preprocess.py
@@ -94,6 +94,10 @@ SEAT is released under the MIT License for academic and non-commercial use.
 
 To request a commercial license, contact the author:
 - **Email**: [mattsutton9@yahoo.com]
+
+## Further Installation Note
+
+This software was built and tested on Windows. It has not been attempted elsewhere.
 
 ---
 
