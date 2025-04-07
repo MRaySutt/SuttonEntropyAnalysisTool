@@ -82,6 +82,10 @@ Measures autocorrelation within post-merger signals to detect potential “echoe
 
 After completing the analysis, rename any output files that do not already include the event ID and store them in a dedicated folder to preserve results.
 
+### 8 Note on Tsallis Entropy
+
+Tsallis entropy is a generalized, non-extensive entropy measure that behaves differently from Shannon and Renyi under certain statistical conditions. Its sensitivity to long-range correlation and heavy-tailed distributions can produce extreme or sparse values, especially in systems with low information density or limited dynamic range. In SEAT, this may manifest as arrays of near-constant values (e.g., -9999) where Tsallis fails to resolve fine-grained structure. This is NOT a bug, but rather a reflection of its unique mathematical behavior. Users are encouraged to interpret Tsallis results qualitatively unless domain-specific tuning is applied.  
+
 ## Licensing
 
 SEAT is released under the MIT License for academic and non-commercial use.
