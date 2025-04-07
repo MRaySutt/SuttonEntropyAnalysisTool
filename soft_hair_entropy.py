@@ -14,7 +14,7 @@ print("It's going!")
 
 #simulate fetching large data for error checker 
 def progress_indicator():
-    messages = ["Still processing... we are working on it!", "No issues yet!", "Processing the process.", "Probably working on it still.", "Calculating calculations with math and things.", "Now we are cooking!", "I like turtles.", "Sorting haystack... checking for needle", "Old people smell funny most of the time.", "Jesus Christ be praised."
+    messages = ["Still processing... we are working on it!", "No issues yet!", "Processing the process.", "Probably working on it still.", "Calculating calculations.", "Now we are cooking!", "Sorting haystack... checking for needle"
     ]
     while True:
         time.sleep(5)
