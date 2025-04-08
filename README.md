@@ -28,7 +28,9 @@ It incorporates classical preprocessing and novel quantum-inspired metrics acros
 ### 1. Clone the Repository
 
 bash
+
 git clone https://github.com/yourusername/SEAT.git
+
 cd SEAT
 
 ### 2. Pick your event and check your permissions 
@@ -51,19 +53,33 @@ It is highly recommended to use a similar structure.
 ### 4. Run through each module in this order in the terminal/command prompt as some build off of each other
 
 1.) fetching_mechanism.py
+
 2.) preprocess.py
+
 3.) spectrogram.py
+
 4.) entropy_analysis.py
+
 5.) wavelet_analysis.py
+
 6.) monte_carlo.py
+
 7.) bayesian_model.py
+
 8.) cauchy_analysis.py
+
 9.) mutual_information.py
+
 10.) smirnov.py
+
 11.) homology.py
+
 12.) echo.py***
+
 13.) soft_hair_memory.py
+
 14.) soft_hair_entropy.py
+
 15.) event_diagnostic.py
 
 ### 5. The Quantum echo is optional.
