@@ -116,7 +116,7 @@ plt.tight_layout()
 plt.show()
 
 #save data of course
-with h5py.File("processed/persistent_homology_results.hdf5", "w") as f:
+with h5py.File(os.path.join(processed_folder, "persistent_homology_results.hdf5"), "w", driver="core") as f:
   f.create_dataset("diagram_h1_H0_shannon", data=diagram_h1_shannon[0])
   f.create_dataset("diagram_h1_H1_shannon", data=diagram_h1_shannon[1])
   f.create_dataset("diagram_l1_L0_shannon", data=diagram_l1_shannon[0])
