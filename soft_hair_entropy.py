@@ -8,6 +8,7 @@ import json
 import time
 import threading
 import random
+from pathlib import Path
 
 
 print("It's going!")
@@ -49,7 +50,7 @@ def compute_windowed_entropy(signal, window_size, step, entropy_func):
 
 
 
-processed_folder = r"C:\Users\matts\processed"
+processed_folder = os.path.join(str(Path.home()), "SEAT_processed")
 processed_folder = processed_folder.strip().replace("\r", "").replace("\n", "")
 
 sample_rate = 4096 #Hz
