@@ -27,16 +27,16 @@ It incorporates classical preprocessing and novel quantum-inspired metrics acros
 
 ### 1. Clone the Repository
 
-```bash
+bash
 git clone https://github.com/yourusername/SEAT.git
 cd SEAT
-+ ```
 
-### 2. Set up your processed data folder
+### 2. Pick your event and check your permissions 
 
-Throughout the software, a base path is used for saving and loading data. This is defined in fetching_mechanism.py as processed_folder. I set this to a folder in my user directory, like: processed_folder = r"C:\Users\matts\processed"
+Ensure that when you before you run the software you have an event time and event ID ready.
 
-You should choose a similar set up and make sure to consistently use this folder across all modules. Every script references this path, so keeping it organized ensures SEAT runs smoothly without broken file references. 
+It is recommended that you use admin priviledges to save the results for each module.
+
 
 ### 3. Install dependencies
 
@@ -44,11 +44,11 @@ pip install -r requirements.txt
 
 This runs on Python out of terminal or command prompt. Python 3.9+ is recommended.
 
-### 4. Set your target event in fetching_mechanism.py 
+This was written on Jupyter Notebook and tested on anaconda_prompt.
 
-Replace the filler GPS time that is included 
+It is highly recommended to use a similar structure.
 
-### 5. Run through each module in this order in the terminal/command prompt as some build off of each other
+### 4. Run through each module in this order in the terminal/command prompt as some build off of each other
 
 1.) fetching_mechanism.py
 2.) preprocess.py
@@ -66,7 +66,7 @@ Replace the filler GPS time that is included
 14.) soft_hair_entropy.py
 15.) event_diagnostic.py
 
-### 6. The Quantum echo is optional.
+### 5. The Quantum echo is optional.
 
 This step is extremely computationally intensive. It took hours on my machine to run just one. This section is explained in detail below.
 
@@ -80,13 +80,16 @@ Measures autocorrelation within post-merger signals to detect potential “echoe
 
 • Entropy-based echoes offer a novel probe: if echoes persist more clearly in Renyi or Shannon domains than in raw strain, it suggests the information retention may be encoded in statistical structure, not amplitude.
 
-### 7 Results
+### 6 Results
 
 After completing the analysis, rename any output files that do not already include the event ID and store them in a dedicated folder to preserve results.
 
-### 8 Note on Tsallis Entropy
+### 7 Note on Tsallis Entropy
 
-Tsallis entropy is a generalized, non-extensive entropy measure that behaves differently from Shannon and Renyi under certain statistical conditions. Its sensitivity to long-range correlation and heavy-tailed distributions can produce extreme or sparse values, especially in systems with low information density or limited dynamic range. In SEAT, this may manifest as arrays of near-constant values (e.g., -9999) where Tsallis fails to resolve fine-grained structure. This is NOT a bug, but rather a reflection of its unique mathematical behavior. Users are encouraged to interpret Tsallis results qualitatively unless domain-specific tuning is applied.  
+Tsallis entropy may yield unexpectedly low values or flatline under certain conditions, particularly during quiet intervals.
+
+In some runs, normalized MI for Tsallis entropy has returned inf, which may indicate extreme sensitivity or an issue with normalization denominator approaching zero.
+These anomolies appear meaningful and may suggest deeper structure or artifacts within the data. Proceed thoughtfully and consider cross-validating with other entropy forms. 
 
 ## Licensing
 
@@ -96,10 +99,6 @@ SEAT is released under the MIT License for academic and non-commercial use.
 
 To request a commercial license, contact the author:
 - **Email**: [mattsutton9@yahoo.com]
-
-## Further Installation Note
-
-This software was built and tested on Windows. It has not been attempted elsewhere.
 
 ---
 
