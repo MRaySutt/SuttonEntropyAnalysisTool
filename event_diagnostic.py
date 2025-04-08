@@ -9,10 +9,10 @@ import time
 import threading
 import random
 import sys
+from pathlib import Path
 
 base_dir = os.getcwd()
-
-processed_folder = r"C:\Users\matts\processed"
+processed_folder = os.path.join(str(Path.home()), "SEAT_processed")
 processed_folder = processed_folder.strip().replace("\r", "").replace("\n", "")
 
 #Load Event ID
