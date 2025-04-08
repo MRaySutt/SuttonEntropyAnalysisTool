@@ -7,6 +7,7 @@ import time
 import threading
 import random
 from pathlib import Path
+
 print("It's going!")
 
 #simulate fetching large data for error checker 
@@ -134,7 +135,7 @@ print("Tsallis L1 Bayes Factor:", k_l1_t, ":", evidence_l1_t)
 
 
 #save results
-with h5py.File("processed/bayesian_results.hdf5", "w") as f:
+with h5py.File(os.path.join(processed_folder, "bayesian_results.hdf5"), "w", driver="core") as f:
     f.create_dataset("ShannonBayesFactor_H1", data=k_h1_s)
     f.create_dataset("ShannonBayesFactor_L1", data=k_l1_s)
     f.create_dataset("RenyiBayesFactor_H1", data=k_h1_r)
