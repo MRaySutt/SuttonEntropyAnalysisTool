@@ -22,16 +22,22 @@ def progress_indicator():
 progress_thread = threading.Thread(target=progress_indicator, daemon=True)
 progress_thread.start()
 
-
-event_id = "fill this in correctly" #change this and gps time for each new event
-#GW 170809 event GPS time 
-gps_time = "this one too please"
 duration = 40 #seconds
 
 base_dir = os.getcwd()
 
 processed_folder = os.path.join(str(Path.home()), "SEAT_processed")
 processed_folder = processed_folder.strip().replace("\r", "").replace("\n", "")
+
+def check_file(file_path):
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(f"File not found: {file_path}")
+
+#Load Event ID
+event_id_path = os.path.join(processed_folder, "event_id.txt")
+check_file(event_id_path)
+with open(event_id_path, "r") as f:
+    event_id = f.read().strip()
 
 print(f"{event_id}")
 print(f"{base_dir}")
@@ -169,7 +175,7 @@ plt.show()
 
 
 #save your results
-with h5py.File("processed/wavelet_results.hdf5", "w", driver="core") as f:
+with h5py.File(os.path.join(processed_folder, "wavelet_results.hdf5"), "w", driver="core") as f::
   f.create_dataset("cwt_h1_s", data=cwt_result_h1_s)
   f.create_dataset("cwt_l1_s", data=cwt_result_l1_s)
   f.create_dataset("cwt_quiet_h1_s", data=cwt_result_h1_quiet_s)
