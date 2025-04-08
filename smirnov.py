@@ -46,7 +46,7 @@ with h5py.File(entropy_hdf5_path, "r") as f:
 carlo_result_path = os.path.abspath(os.path.join(processed_folder.strip(), "monte_carlo_results.hdf5"))
 print("Trying to open:", repr(carlo_result_path))
 
-with h5py.File("processed/monte_carlo_results.hdf5", "r") as f:
+with h5py.File(carlo_result_path, "r") as f:
   simulated_shannon_h1 = f["sim_entropy_h1_shannon"][:]
   simulated_shannon_l1 = f["sim_entropy_l1_shannon"][:]
   simulated_renyi_h1 = f["sim_entropy_h1_renyi"][:]
@@ -119,7 +119,7 @@ else:
 
 
 #save our results
-with h5py.File("processed/ks_test_results.hdf5", "w") as f:
+with h5py.File(os.path.join(processed_folder, "ks_test_results.hdf5"), "w", driver="core") as f:
   f.create_dataset("ks_stat_h1_shannon", data=ks_stat_h1_shannon)
   f.create_dataset("ks_stat_l1_shannon", data=ks_stat_l1_shannon)
   f.create_dataset("ks_stat_h1_renyi", data=ks_stat_h1_renyi)
