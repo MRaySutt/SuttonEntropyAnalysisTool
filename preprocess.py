@@ -7,6 +7,7 @@ import time
 import threading
 import h5py
 import random
+from pathlib import Path
 
 #This just lets us know that everything is functioning. It is my attempt at a loading screen. 
 def progress_indicator():
@@ -20,7 +21,8 @@ progress_thread.start()
 
 #Check directory and make sure path is clear
 base_dir = os.getcwd()
-processed_folder = os.path.join(base_dir, "processed")
+processed_folder = os.path.join(str(Path.home()), "SEAT_processed")
+processed_folder = processed_folder.strip().replace("\r", "").replace("\n", "")
 
 def check_file(file_path):
     if not os.path.exists(file_path):
