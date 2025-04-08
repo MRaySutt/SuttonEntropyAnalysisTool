@@ -23,7 +23,9 @@ progress_thread.start()
 
 #Check directory and make sure path is clear
 base_dir = os.getcwd()
+
 processed_folder = os.path.join(str(Path.home()), "SEAT_processed")
+processed_folder = processed_folder.strip().replace("\r", "").replace("\n", "")
 
 def check_file(file_path):
     if not os.path.exists(file_path):
