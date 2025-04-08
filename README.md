@@ -107,6 +107,9 @@ To request a commercial license, contact the author:
 - You can’t package or sell SEAT commercially without permission
 
 ### Citation 
+If you use this tool in your research please cite with the following DOI:
+https://doi.org/10.5281/zenodo.15172345
+
 @misc{seat2025,
 author = {Matthew R. Sutton},
 title = {SEAT - Sutton Entropy Analysis Tool},
@@ -114,3 +117,4 @@ year = {2025},
 url = {https://github.com/MRaySutt/SuttonEntropyAnalysisTool},
 note = {Open-source software for gravitational-wave entropy analysis}
 }
+
