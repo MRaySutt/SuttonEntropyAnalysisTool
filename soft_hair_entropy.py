@@ -26,8 +26,7 @@ progress_thread.start()
 
 #Check directory and make sure path is clear
 base_dir = os.getcwd()
-
-processed_folder = r"C:\Users\matts\processed"
+processed_folder = os.path.join(str(Path.home()), "SEAT_processed")
 processed_folder = processed_folder.strip().replace("\r", "").replace("\n", "")
 
 #Load Event ID
@@ -147,7 +146,7 @@ print(f"Entropy Results for Soft Hair Region (L1): {entropy_shannon_l1}, {entrop
 print(f"Entropy Results for Soft Hair Region (L1 Quiet): {shannon_quiet_l1}, {renyi_quiet_l1}, {tsallis_quiet_l1}")
 
 #save now! 
-with h5py.File("processed/soft_hair_entropy_results.hdf5", "w") as f:
+with h5py.File(os.path.join(processed_folder, "soft_hair_entropy_results.hdf5"), "w", driver="core") as f:
   f.create_dataset("entropy_shannon_h1", data=entropy_shannon_h1)
   f.create_dataset("entropy_shannon_l1", data=entropy_shannon_l1)
   f.create_dataset("entropy_renyi_h1", data=entropy_renyi_h1)
@@ -305,7 +304,7 @@ stat_results = {
 }}
 
 #save results in HDF5 format
-with h5py.File("processed/statistical_results.hdf5", "w") as f:
+with h5py.File(os.path.join(processed_folder, "statistical_results.hdf5"), "w", driver="core") as f:
     for category, tests in stat_results.items():
         grp = f.create_group(category)
         for key, value in tests.items():
@@ -316,7 +315,7 @@ with h5py.File("processed/statistical_results.hdf5", "w") as f:
 
 print("Statistical Results have successfully saved.")
 
-with h5py.File("processed/std_entropy_results_sh.hdf5", "w") as f:
+with h5py.File(os.path.join(processed_folder, "std_entropy_results_sh.hdf5"), "w", driver="core") as f:
     for key, value in std_results.items():
         f.create_dataset(key, data=value)
 
