@@ -133,7 +133,7 @@ print(f"Tsallis Kurtosis L1: {kurtosis_l1_tsallis} ({kurtosis_evidence_l1_tsalli
 
 
 #save the results
-with h5py.File("processed/cauchy_entropy_results.hdf5", "w") as f:
+with h5py.File(os.path.join(processed_folder, "cauchy_entropy_results.hdf5"), "w", driver="core") as f:
   f.create_dataset("cauchy_log_likelihood_h1_shannon", data=log_likelihood_h1_shannon)
   f.create_dataset("cauchy_log_likelihood_l1_shannon", data=log_likelihood_l1_shannon)
   f.create_dataset("cauchy_log_likelihood_h1_renyi", data=log_likelihood_h1_renyi)
