@@ -6,7 +6,7 @@ from gwpy.timeseries import TimeSeries
 import time
 import threading
 import random
-
+from pathlib import Path
 print("It's going!")
 
 #simulate fetching large data for error checker 
@@ -22,7 +22,7 @@ progress_thread.start()
 #Check directory and make sure path is clear
 base_dir = os.getcwd()
 
-processed_folder = r"C:\Users\matts\processed"
+processed_folder = os.path.join(str(Path.home()), "SEAT_processed")
 processed_folder = processed_folder.strip().replace("\r", "").replace("\n", "")
 
 #Load Event ID
