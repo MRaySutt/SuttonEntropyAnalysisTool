@@ -108,7 +108,7 @@ for label, signal1, signal2, c1, c2 in signal_pairs:
 
 
 #save em! 
-with h5py.File("processed/quantum_echo_results.hdf5", "w") as f:
+with h5py.File(os.path.join(processed_folder, "quantum_echo_results.hdf5"), "w", driver="core") as f:
     for res in results:
         grp = f.create_group(res["label"])
         grp.create_dataset("lags", data=res["lags"])
