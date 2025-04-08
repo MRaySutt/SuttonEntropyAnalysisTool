@@ -254,7 +254,7 @@ print(f"P-Value for H1 Entropy Tsallis: {p_value_h1_tsallis}")
 print(f"P-Value for L1 Entropy Tsallis: {p_value_l1_tsallis}")
 
 #save your monte carlo results
-with h5py.File("processed/monte_carlo_results.hdf5", "w") as f:
+with h5py.File(os.path.join(processed_folder, "monte_carlo_results.hdf5"), "w", driver="core") as f:
     f.create_dataset("simulated_entropies_h1_shannon", data=simulated_entropies_h1_shannon)
     f.create_dataset("simulated_entropies_l1_shannon", data=simulated_entropies_l1_shannon)
     f.create_dataset("simulated_entropies_h1_renyi", data=simulated_entropies_h1_renyi)
