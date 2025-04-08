@@ -101,7 +101,7 @@ print(f"Tsallis Mutual information (H1 - L1) on Whitened Data: {mi_value_tsallis
 print(f"Tsallis Normalized Mutual Information (H1 - L1): {normalized_mi_tsallis}")
 
 #save results 
-with h5py.File("processed/mutual_information_results.hdf5", "w") as f:
+with h5py.File(os.path.join(processed_folder, "mutual_information_results.hdf5"), "w", driver="core") as f:
   f.create_dataset("shannon_mutual_info", data=mi_value_shannon)
   f.create_dataset("renyi_mutual_info", data=mi_value_renyi)
   f.create_dataset("tsallis_mutual_info", data=mi_value_tsallis)
