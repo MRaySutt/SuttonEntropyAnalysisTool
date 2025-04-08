@@ -239,7 +239,7 @@ print(f"Tsallis Entropy Mean PSD ratio (H1 Post/Pre): {mean_tsa_psd_dev_h1}")
 print(f"Tsallis Entropy Mean PSD ratio (L1 Post/Pre): {mean_tsa_psd_dev_l1}")
 
 #save those results!! 
-with h5py.File("processed/soft_hair_results.hdf5", "w") as f:
+with h5py.File(os.path.join(processed_folder, "soft_hair_results.hdf5"), "w", driver="core") as f:
   f.create_dataset("mean_residual_h1", data=mean_residual_h1)
   f.create_dataset("mean_residual_l1", data=mean_residual_l1)
   f.create_dataset("shan_mean_residual_h1", data=shan_mean_residual_h1)
