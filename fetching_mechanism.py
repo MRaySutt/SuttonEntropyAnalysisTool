@@ -6,6 +6,7 @@ import time
 import threading
 import os
 import random
+from pathlib import Path
 
 print("executing script now.")
 
@@ -26,8 +27,8 @@ duration = 40 #seconds
 sample_rate = 4096 #Hz
 
 #output folder
-base_dir = os.getcwd()
-processed_folder = os.path.join(base_dir, "processed")
+user_home = str(Path.home())
+processed_folder = os.path.join(user_home, "SEAT_processed")
 os.makedirs(processed_folder, exist_ok=True)
 
 print(f"Going to save to {processed_folder}")
