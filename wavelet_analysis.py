@@ -8,6 +8,7 @@ import time
 import threading
 import h5py
 import random
+from pathlib import Path
 
 print("It's going!")
 
@@ -28,7 +29,9 @@ gps_time = "this one too please"
 duration = 40 #seconds
 
 base_dir = os.getcwd()
-processed_folder = r"C:\Users\matts\processed"
+
+processed_folder = os.path.join(str(Path.home()), "SEAT_processed")
+processed_folder = processed_folder.strip().replace("\r", "").replace("\n", "")
 
 print(f"{event_id}")
 print(f"{base_dir}")
