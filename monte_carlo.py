@@ -120,12 +120,14 @@ def renyi_entropy(signal, alpha=0.5):
   return 1 / (1 - alpha) * np.log2(hist_sum)
 
 def tsallis_entropy(signal, q=2):
-  hist, _ = np.histogram(signal, bins=100, density=True)
+  hist, _ = np.histogram(signal, bins=100, density=False)
   hist = hist[hist > 0]
-  hist_sum = np.sum(hist ** q)
-  if hist_sum > 1:
-      hist_sum = 1
-  return (1 - hist_sum) / (q - 1)
+  prob = hist / np.sum(hist)
+  if q == 1:
+      #Tsallis reduces to shannon if q = 1
+      return -np.sum(prob * np.log(prob))
+  else: 
+      return (1 - np.sum(prob ** q)) / (q - 1)
 
 
 #set up our entropy sliders again
