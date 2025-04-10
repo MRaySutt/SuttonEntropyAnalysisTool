@@ -100,13 +100,6 @@ Measures autocorrelation within post-merger signals to detect potential “echoe
 
 After completing the analysis, rename any output files that do not already include the event ID and store them in a dedicated folder to preserve results.
 
-### 7 Note on Tsallis Entropy
-
-Tsallis entropy may yield unexpectedly low values or flatline under certain conditions, particularly during quiet intervals.
-
-In some runs, normalized MI for Tsallis entropy has returned inf, which may indicate extreme sensitivity or an issue with normalization denominator approaching zero.
-These anomolies appear meaningful and may suggest deeper structure or artifacts within the data. Proceed thoughtfully and consider cross-validating with other entropy forms. 
-
 ## Licensing
 
 SEAT is released under the MIT License for academic and non-commercial use.
