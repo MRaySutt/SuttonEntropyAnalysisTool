@@ -47,6 +47,13 @@ with h5py.File(entropy_hdf5_path, "r") as f:
     tsallis_h1 = f["entropy_h1_time_tsallis"][:]
     tsallis_l1 = f["entropy_l1_time_tsallis"][:]
 
+
+tsallis_h1 = np.array(tsallis_h1).squeeze()
+tsallis_l1 = np.array(tsallis_l1).squeeze()
+
+print("Tsallis H1 entropy length: ", tsallis_h1.shape)
+print("Tsallis L1 entropy length: ", tsallis_l1.shape)
+
 #load the data
 h1_whitened_path = os.path.join(processed_folder, f"{event_id}_h1_whitened.hdf5")
 l1_whitened_path = os.path.join(processed_folder, f"{event_id}_l1_whitened.hdf5")
@@ -58,39 +65,52 @@ l1_whitened = TimeSeries.read(l1_whitened_path)
 
 
 signal_pairs = [
-    ("Strain", h1_whitened, l1_whitened, "blue", "red"),
-    ("Shannon", shannon_h1, shannon_l1, "green", "orange"),
-    ("Renyi", renyi_h1, renyi_l1, "purple", "brown"),
-    ("Tsallis", tsallis_h1, tsallis_l1, "cyan", "magenta")
+    #("Strain", h1_whitened, l1_whitened, "blue", False),
+    #("Shannon", shannon_h1, shannon_l1, "red", True),
+    #("Renyi", renyi_h1, renyi_l1, "brown", True),
+    ("Tsallis", tsallis_h1, tsallis_l1, "cyan", True)
 ]
 
-def run_echo_analysis(signal1, signal2, label, color):
+def run_echo_analysis(signal1, signal2, label, color, is_entropy):
     min_len = min(len(signal1), len(signal2))
     signal1 = signal1[:min_len]
     signal2 = signal2[:min_len]
+    #Normalize if entropy based
+    if is_entropy:
+        print(f"{label} - Signal1 Mean: {np.mean(signal1)}, Std: {np.std(signal1)}, Shape: {signal1.shape}")
+        print(f"{label} - Signal2 Mean: {np.mean(signal2)}, Std: {np.std(signal2)}, Shape: {signal2.shape}")
+        signal1 = (signal1- np.mean(signal1)) / (np.std(signal1) + 1e-8)
+        signal2 = (signal2- np.mean(signal2)) / (np.std(signal2) + 1e-8)
+    #apply hann window
     hann_window = windows.hann(len(signal1))
     windowed_1 = signal1 * hann_window
     windowed_2 = signal2 * hann_window
+    #Main autocorrelation (echo)
     auto_corr = correlate(windowed_1, windowed_2, mode="full")
-    lags = np.arange(-(len(signal1)) + 1, len(signal1))
+    lags = np.arange(-len(signal1) + 1, len(signal1))
+    #permutation test
     n_perm = 1000
     random_autocorr = np.zeros((n_perm, len(auto_corr)))
     for i in range(n_perm):
-        np.random.shuffle(signal1)
-        np.random.shuffle(signal2)
-        shuffled_corr = correlate(signal1, signal2, mode="full")
+        s1 = np.copy(signal1)
+        s2 = np.copy(signal2)
+        np.random.shuffle(s1)
+        np.random.shuffle(s2)
+        shuffled_corr = correlate(s1 * hann_window, s2 * hann_window, mode="full")
         if len(shuffled_corr) == random_autocorr.shape[1]:
-            random_autocorr[i, :] = shuffled_corr
+            random_autocorr[i] = shuffled_corr
         else:
             #if there is ever a mismatch, truncate or pad as needed
+            print(f"Warning: Shuffled {i} has length  {len(shuffled_corr)}, expected {random_autocorr.shape[1]}")
             min_len = min(len(shuffled_corr), random_autocorr.shape[1])
             random_autocorr[i, :min_len] = shuffled_corr[:min_len]
-            if min_len < random_autocorr.shape[1]:
-                random_autocorr[i, min_len:] = 0 #zero padding
     mean_autocorr = np.mean(random_autocorr, axis=0)
     std_autocorr = np.std(random_autocorr, axis=0)
-    plt.plot(lags, auto_corr, label=f"{label} Autocorrelation", linestyle="--", color=color)
-    plt.fill_between(lags, mean_autocorr - 2*std_autocorr, mean_autocorr + 2*std_autocorr, color=color, alpha=0.2)
+    plt.plot(lags, auto_corr, label=f"{label} Autocorrelation", color=color)
+    plt.fill_between(lags, mean_autocorr - 2 * std_autocorr, mean_autocorr + 2 * std_autocorr, color=color, alpha=0.2)
+    plt.title(label)
+    plt.legend()
+    plt.show()
     return {
         "label" : label,
         "lags" : lags,
@@ -101,8 +121,8 @@ def run_echo_analysis(signal1, signal2, label, color):
 
 results = []
 
-for label, signal1, signal2, c1, c2 in signal_pairs:
-    result = run_echo_analysis(signal1, signal2, label, c1)
+for label, signal1, signal2, color, is_entropy in signal_pairs:
+    result = run_echo_analysis(signal1, signal2, label, color, is_entropy)
     results.append(result)
 
 
