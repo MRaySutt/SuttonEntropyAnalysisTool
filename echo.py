@@ -66,8 +66,8 @@ l1_whitened = TimeSeries.read(l1_whitened_path)
 
 signal_pairs = [
     #("Strain", h1_whitened, l1_whitened, "blue", False),
-    #("Shannon", shannon_h1, shannon_l1, "red", True),
-    #("Renyi", renyi_h1, renyi_l1, "brown", True),
+    ("Shannon", shannon_h1, shannon_l1, "red", True),
+    ("Renyi", renyi_h1, renyi_l1, "brown", True),
     ("Tsallis", tsallis_h1, tsallis_l1, "cyan", True)
 ]
 
@@ -87,6 +87,10 @@ def run_echo_analysis(signal1, signal2, label, color, is_entropy):
     windowed_2 = signal2 * hann_window
     #Main autocorrelation (echo)
     auto_corr = correlate(windowed_1, windowed_2, mode="full")
+    if is_entropy:
+        auto_corr = auto_corr.flatten()
+        signal1 = signal1.flatten()
+        signal2 = signal2.flatten()
     lags = np.arange(-len(signal1) + 1, len(signal1))
     #permutation test
     n_perm = 1000
@@ -104,6 +108,8 @@ def run_echo_analysis(signal1, signal2, label, color, is_entropy):
             print(f"Warning: Shuffled {i} has length  {len(shuffled_corr)}, expected {random_autocorr.shape[1]}")
             min_len = min(len(shuffled_corr), random_autocorr.shape[1])
             random_autocorr[i, :min_len] = shuffled_corr[:min_len]
+            if min_len < random_corr.shape[1]:
+                random_autocorr[i, min_len:] = 0
     mean_autocorr = np.mean(random_autocorr, axis=0)
     std_autocorr = np.std(random_autocorr, axis=0)
     plt.plot(lags, auto_corr, label=f"{label} Autocorrelation", color=color)
