@@ -8,6 +8,20 @@ import os
 import random
 from pathlib import Path
 
+
+try: gps_time = int(input("Enter GPS time for the event (e.g., 1126259462): ").strip())
+except ValueError:
+    print("Invalid GPS time. Please enter an integer.")
+    exit()
+
+event_id = input("Enter a name for this event (e.g., GW150914): ").strip()
+if not event_id:
+    print("Event ID cannot be empty.")
+    exit()
+
+duration = 40 #seconds
+sample_rate = 4096 #Hz
+
 print("executing script now.")
 
 #simulate fetching large data for error checker 
@@ -20,11 +34,6 @@ def progress_indicator():
 progress_thread = threading.Thread(target=progress_indicator, daemon=True)
 progress_thread.start()
 
-#event specifics
-event_id = "GW150914" #change this and gps time for each new event
-gps_time = 1126259462
-duration = 40 #seconds
-sample_rate = 4096 #Hz
 
 #output folder
 user_home = str(Path.home())
@@ -47,7 +56,7 @@ h1_data = TimeSeries.fetch_open_data('H1', gps_time - 20, gps_time + 20)
 
 print("LOOKED AT H1 and L1 EVENT")
 
-quiet_time_gps = 1126259462 - 1800 #30 minutes before event #MAKE SURE YOU CHANGE THIS FOR NEW EVENT
+quiet_time_gps = gps_time - 1800 #30 minutes before event #MAKE SURE YOU CHANGE THIS FOR NEW EVENT
 h1_quiet = TimeSeries.fetch_open_data('H1', quiet_time_gps - 20, quiet_time_gps + 20)
 l1_quiet = TimeSeries.fetch_open_data('L1', quiet_time_gps - 20, quiet_time_gps + 20)
 
@@ -59,6 +68,8 @@ h1_data.write(os.path.join(processed_folder, f"{event_id}_h1_data.hdf5"), format
 l1_data.write(os.path.join(processed_folder, f"{event_id}_l1_data.hdf5"), format="hdf5")
 h1_quiet.write(os.path.join(processed_folder, f"{event_id}_h1_quiet.hdf5"), format="hdf5")
 l1_quiet.write(os.path.join(processed_folder, f"{event_id}_l1_quiet.hdf5"), format="hdf5")
+
+print("Sample rate is saved.")
 
 #plot comparison for sanity check
 fig, axs = plt.subplots(2, 1, figsize=(10, 6), sharex=True)
@@ -76,10 +87,8 @@ plt.xlabel("Time (s)")
 plt.tight_layout()
 plt.show()
 
-print("Plot successful.")
 
-#to add new event (for example GW150914)
-#gps_time = 1126259462
+
 
 print("Script successfully completed.")
 exit()
