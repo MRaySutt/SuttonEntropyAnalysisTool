@@ -35,7 +35,9 @@ cd SEAT
 
 ### 2. Pick your event and check your permissions 
 
-Ensure that when you before you run the software you have an event time and event ID ready.
+Ensure that when you before you run the software you have a precise GPS time and event ID ready.
+
+If the GPS time ends in a decimal round to the nearest whole number, since we are taking chunks of the data rather than a specific point. 
 
 It is recommended that you use admin priviledges to save the results for each module.
 
