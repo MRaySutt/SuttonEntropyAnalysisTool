@@ -4,6 +4,10 @@ SEAT is an advanced gravitational wave analysis toolkit designed to test for inf
 
 It incorporates classical preprocessing and novel quantum-inspired metrics across multiple entropy models (Shannon, Renyi, Tsallis), enabling high-resolution investigation of potential memory effects, quantum echoes, and topological structures in LIGO strain data.
 
+!!! Currently Undergoing Maintenance: I intend on 'shotgunning' the entropy methodology for renyi and tsallis. For example, for the Tsallis methodology there are more precise q values than simply leaving it at one. There seems to be an ideal range, for example, it could be 1.3 ~ 1.7. I plan on honing in on these ranges and then finding the average value for each point in time across the range. 
+
+I imagine for BH mergers, neutron stars, and regular BH data we will find different ideal ranges yet I am unable to clarify that at the moment.!!!
+
 > **Built from scratch by Matthew R. Sutton — for scientists, by a curious mind.**
 
 ---
